@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="visivle_tab_count" format="integer"/>
+    <declare-styleable name="ViewPagerIndicator">
+        <attr name="visivle_tab_count"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="FlowLayout">
+        <attr name="maxLines" format="integer"></attr>
+    </declare-styleable>
+    
+    <declare-styleable name="TextImageCell">
+        <attr name="cell_title" format="string"/>
+        <attr name="cell_rightImage" format="reference"/>
+    </declare-styleable>
+
+</resources>

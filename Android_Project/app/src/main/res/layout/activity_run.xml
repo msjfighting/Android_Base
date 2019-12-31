@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RunActivity">
+
+<!--
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_layout"
+        android:orientation="vertical"></LinearLayout>
+-->
+
+    <LinearLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
+
+
+<!--    展示切换标签 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RadioGroup
+            android:id="@+id/home"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:drawableTop="@drawable/home_no"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="#b3b3b3"
+                android:textSize="15sp"
+                />
+            <RadioButton
+                android:id="@+id/rb_hot"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:drawableTop="@drawable/hot_no"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="#b3b3b3"
+                android:textSize="15sp"
+                />
+
+        </RadioGroup>
+
+    </LinearLayout>
+</RelativeLayout>

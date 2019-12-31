@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文字显示当前控件的显示区域是否可以完整的呈现出来文字显示当前控件的显示区域是否可以完整的呈现出来"
+        android:textSize="20sp"
+        android:textColor="@color/colorYellow"
+        android:maxLines="2"
+        />
+    <!--android:maxLength=""-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文字显示2"
+        android:textSize="20sp"
+        android:textColor="@color/colorYellow"
+       android:visibility="invisible"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="http://www.baidu.com"
+        android:textSize="20sp"
+        android:textColor="@color/colorYellow"
+        android:visibility="visible"
+        android:autoLink="web"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="--------跑马灯效果-----"
+        android:textSize="30sp"
+        android:textColor="@color/colorRed"
+        android:visibility="visible"
+        android:autoLink="web"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="欢迎大家学习安卓,安卓是广受大家喜欢的语言, 我喜欢, 才怪!!"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="腾讯"
+        android:textSize="20sp"
+        android:drawableBottom="@drawable/ic_launcher_background"
+        />
+</LinearLayout>

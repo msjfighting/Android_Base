@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ClassOne</string>
+    <string name="pre">下一张</string>
+    <string name="next">下一张</string>
+    <string name="register">用户注册</string>
+    <string name="select">请选择你的城市:</string>
+    <string name="yourSelect">你选择的城市是:</string>
+    <string name="title">Android学习</string>
+</resources>

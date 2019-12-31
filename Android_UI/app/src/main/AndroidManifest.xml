@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.zlhj.classone">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".TestWebView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TestNetwork">
+
+        </activity>
+        <activity
+            android:name=".TestLaunchTwo"
+            android:launchMode="standard" />
+        <activity
+            android:name=".TestLaunch"
+            android:launchMode="singleInstance"></activity>
+        <activity android:name=".TestThree" />
+        <activity android:name=".TestTwo">
+            <intent-filter>
+                <action android:name="com.example.zlhj.classone.TestOne.action" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TestOne"
+            android:label="@string/title" />
+        <activity android:name=".TestSpinnerProvince" />
+        <activity android:name=".test_autocompletetextview" />
+        <activity android:name=".test_ListView" />
+        <activity android:name=".text_GridView" />
+        <activity android:name=".testspinner" />
+        <activity android:name=".custom_activity" />
+        <activity android:name=".simpleadapter" />
+        <activity android:name=".testAdapter" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- 方式一: 在控件中添加属性
+        取消掉chexbox的焦点抢占 导致 item 无法点击
+        android:focusable="false"
+        方式二:
+       android:descendantFocusability="blocksDescendants"
+        -->
+
+    <CheckBox
+
+        android:id="@+id/id_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/id_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#444"
+        android:singleLine="true"
+        tools:text="标题"/>
+
+
+    <TextView
+        android:id="@+id/id_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_title"
+        android:layout_marginTop="@dimen/marginSize"
+        android:minLines="1"
+        android:maxLines="2"
+        android:textColor="#898989"
+        android:textSize="16sp"
+        tools:text="标题"/>
+
+        <TextView
+            android:id="@+id/id_time"
+            android:layout_below="@id/id_desc"
+            android:layout_marginTop="@dimen/marginSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="12sp"
+            tools:text="标题"/>
+
+        <TextView
+            android:id="@+id/id_phone"
+            android:layout_below="@id/id_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginSize"
+            android:textSize="12sp"
+            android:drawableLeft="@drawable/taobao"
+            android:drawablePadding="5dp"
+            android:padding="3dp"
+            android:textColor="#ffffff"
+            android:background="@color/greenColor"
+            android:layout_alignParentRight="true"
+            tools:text="标题"/>
+
+
+</RelativeLayout>

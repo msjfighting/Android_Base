@@ -1,0 +1,226 @@
+/**         ----------------   布局  -----------------------------
+ * 1.线性布局是按照垂直或水平进行排布的
+ *   默认是按照水平进行排布
+ *   orientation: 用来指定当前的线性布局排布的方向
+ *   wrap_content:包裹内容
+ *   match_parent:匹配父类
+ *   margin: 表示控件距离其他控件或者屏幕边缘 (外边距)
+ *   padding: 表示为控件内部内容距离控件的边缘的间距 (内边距)
+ *   gravity: 表示控件的内部内容针对控件本身的对齐方式.
+ *   layout_gravity: 表示该控件在父类布局中的对齐方式
+ *   注意: 如果线性布局的排布方式为水平,那么layout_gravity在水平方向上就不起作用,只有在垂直方向上有作用.
+ *
+ *   layout_weight:表示权重的概念.即按照百分比形式进行划分
+ *   如果控件划分的区域为match_parent 权重越大,所占比例就越小
+ *   如果控件划分的区域为wrap_content 权重越大,所占比例就越大
+ *
+ *   思考,在一个页面中,有一个有权重的控件和一个无权重的控件,系统会先给谁分配空间呢
+ *   系统肯定会先给无权重的控件分配空间,才会得到需要百分比的空间大小来进行百分比划分.
+ *   权重的概念只存在线性布局LinearLayout
+ *
+ *
+ *  注意: layout_width和layout_height是平面图形中不可或缺的两个属性.任何图形需要显示都需要宽,高.
+ *
+ *
+ * 2.相对布局:RelativeLayout  一般来说在相对布局中的控件会存在id属性
+ *  按照控件之间的相互位置进行排布.存在一个参照物的概念
+ *  layout_centerInParent:位于父类的中部
+ *  layout_alignParentBottom:对齐父类的底部,其中方向性的单词可以更换.
+ *  toRightOf ,在某个控件的右方 方向性的单词可以更换
+ *  alignBottom ,底部对齐 方向性的单词可以更换
+ *  @+id: 表示是系统本来不存在对应的id
+ *  @id: 表示从系统中去除已经添加好的id
+ *
+ *  基准线对齐
+ *  alignBaseline
+ *
+ *  针对相对布局而言,一般都不会过多的给定很多相关联的属性,否则耦合性就会增加
+ *
+ * 3.TableLayout 继承自LinearLayout
+ *   stretchColumns:拉伸某一列,让布局显得不紧凑
+ *   shrinkColumns: 回缩某一列,让整体的内容都得以呈现
+ *   collapseColumns: 隐藏某一列
+ *
+ *   TableRow的宽和高可以不指定,系统会自动给定对应的宽和高
+ *
+ *  4.FrameLayout帧布局
+ *      默认是按照左上角(0,0)开始排布
+ *      在帧布局中定义的控件每一个页面都是以画面的形式进行呈现
+ *      最开始定义的控件出现在最下方那个,最后定义的出现在最上方
+ *
+ *      帧布局可以使用在手机联系人的导航显示上字母的呈现
+ *      帧布局使用在帧动画.
+ *
+ *   5.AbsoluteLayout绝对布局(不推荐使用)
+ *      默认左上角为起始点
+ *      使用的时候一般通过layout_x 和 layout_y来确定控件存放的位置
+ *      不利于布局
+ *
+ *   6.GridLayout网格布局
+ *      columnCount,存在多少列
+ *      RowCount,存在多少行
+ *      layout_columnSpan,占据多少列
+ *      layout_rowSpan, 占据多少行
+ *      TableLayout定义TableRow来呈现内容
+ *      GridLayout中可以定义控件直接使用
+ *      表格布局只能合并列 不能合并行
+ *      网格布局既可以合并列又可以合并列
+ *
+ *      ----------------------------------   控件  -----------------------------
+ *   1.TextView:用来呈现文字
+ *    系统中的常用的属性通过andorid:来引用 是因为xmlns的命名空间定义
+ *    常用属性:
+ *     visibility :可见性 默认可见
+ *          invisible 表示不可见,但是控件的显示区域做了保留
+ *          gone  不可见  控件显示区域不做保留
+ *      autoLink: 自动连接类型
+ *      background: 这是背景颜色 背景图片
+ *    TextView 呈现跑马灯效果
+ *      singleLine : 单行显示
+ *      ellipsize : 省略号显示位置
+ *      focusable: 是否支持获取焦点
+ *      focusableInTouchMode: 活动时是否支持获取焦点
+ *      scrollHorizontally: 是否为水平滑动
+ *    如果想要TextView实现跑马灯效果,那么这个TextView必须获取焦点
+ *    如果想要呈现文字和图片都出现的效果就需要drawableTop:图片在文字的显示位置 方向性的单词可以替换
+ *    如果需要给TextView设定实现的图片可以考虑drawableBottom/left/top/right
+
+     2.Button
+        如果需要给按钮添加监听,需要在Java代码中找到这个按钮
+        1.使用匿名内部类的形式,直接将需要设置的OnClickListener接口对象初始化.内部的onClick会在按钮点击时执行
+        2.在xml文件当中定义onClick属性 属性中对应的值需要在Java代码中编写对应的方法名
+            注意: 参数中的View必须有.方法类似于 public void XXX (View v){}
+        3.在给Button按钮设置点击的监听的时候直接让当前的Activity实现OnClickListener接口,这样传入的监听对象就可以直接使用当前的Activity.this
+        4. 让另一个类来实现onClickListenter 接口,这样如果控件在需要点击的监听的时候,直接传入该类的对象即可
+
+     3. CheckBox : 用来进行多选的按钮
+     4. RadioButton : 单选按钮  如果需要让几个按钮之间存在互斥效果,那么需要将这些文件定义在一个RadioGroup当中
+        CompoundButton是RadioButton的父类,也是CheckBox的父类
+        OnCheckedChangeListener是定义在CompoundButton当中的监听,所以RadioButton和CheckBox都可以进行使用
+        针对单选按钮而言,可以单一的为RadioButton设置选中状态发生变化的监听,也可以给存放这些单选按钮的RadioGroup设置监听 名字都是叫做OnCheckedChangeListener,但是所属的类不同
+      5.EditText : 文本输入框
+          继承自TextView,所以TextView的属性都可以使用
+          ems: 默认EditText的字符呈现的高度
+          inputType: 设置输入框输入的类型 number textPassword
+          hint : 设置默认提示文字
+          setTransformationMethod: 修改输入类型 HideReturnsTransformationMethod.getInstance() 明文显示 PasswordTransformationMethod.getInstance()密文显示
+
+      6.ImageView
+        src : 就是ImageView中内容填充的资源
+        background : 表示成ImageView的背景显示
+        也可以添加对应的点击监听事件
+        scaleType : 定义在imageview上用来呈现图片显示格式的
+        在Java代码中如果需要对Imageview设置不同的显示, 通过api setImageResource
+
+       ImageButton: 用来响应图片点击事件
+       一般使用ImageButton来响应控件的点击效果,使用ImageView来呈现一个图片控件
+        ImageButton 是ImageView的子类 所以在ImageView上的属性都可使用
+
+
+
+
+     1.ArrayAdapter 使用在适配每一项都是字符串的情况
+        适配过程中需要数据源 适配器,将数据源放在适配器上,再将适配器设置到AdapterView上
+
+      在使用ArrayAdapter的时候,需要确保当前显示的item的根节点是TextView
+
+     2.SimpleAdapter 可以使用在多空间进行适配的效果中
+       数据源:List<Map<String,Object>>
+       对比ArrayAdapter
+        1.比ArrayAdapter支持item显示控件更多
+        2.数据源的格式变得稍微负责一点
+
+     3.自定义适配器
+        1.继承自BaseAdapter,实现四个方法 getCount(), getItem(), getItemId(), getView()
+        2.LayoutInflater: 布局映射器 通过.from方法获取布局映射对象,就可以调用该对象的inflate方法 将一个xml布局转换为视图view.
+          将一个定义好的布局xml文件转换成View对象 findViewById通过View对象来调用
+        3.通过代码需要将适配的数目指定,需要返回的视图对象指定.
+     4. Spinner 下拉列表
+        1. 自定义resources xml文件 使用ArrayAdapter.createFromResource加载自定义文件
+        2.布局xml文件中 使用entries 加载自定义文件
+
+     5. GridView 表格控件
+
+        1. numColumns 设置列数
+           scrollbars 是否显示滚动条 none 不显示
+           listSelector: 设置item选中的背景颜色
+
+      6. ListView
+            添加头部 尾部 addHeader()  addFooter()
+      7.AutoCompleteTextView 实现热门提示效果
+
+
+      8. android 四大组件之Activity
+
+        生命周期
+        onCreate: 页面实例被创建的方法
+        onStart: 启动当前的activity实例的方法
+        onResume: 如果该方法执行,页面的实例和用户可以交互
+        onPause: 如果该方法执行,页面就和用户不再交互,失去焦点.页面仍旧可见
+        onStop: 页面就和用户完全不可见
+        onDestroy: 销毁当前activity页面实例
+        onRestart: 将置于后台的应用重新显示在前台的时候被调用 一般会持续调用onStart-----onResume
+     activity的生命周期方法都是成对实现的
+     因为onResume --- onPause方法会比其他生命周期方法执行的更为频繁,所以一般在这两个方法中写的代码较少
+
+
+    9. Activity的协同作用
+
+      A页面跳转到B页面 A失去焦点,执行onPause   B运行 执行 onCreate onStart onResume  A执行onStop 运行到后台
+      B返回A页面
+
+
+     修改标题显示
+     在AndroidManifest.xml中修改label标签
+     setTitle();
+
+     去除标题显示
+      在AndroidManifest.xml中去掉label标签
+      android:theme="@android:style/Theme.Light.NoTitleBar"
+      // 写在setContentView 之前 否则会报错
+      requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+      去除状态栏
+      android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+    10. Intent 表示意图,一般用来进行跳转内容,实现组件之间的跳转
+       六大属性:
+        ComponentName : 组件名
+        action: 定义动作,为了区别当前的Intent对象进行使用的
+        category: 分类,进一步的筛选到底需要处理的内容
+                    <category android:name="android.intent.category.DEFAULT"/> // 隐式启动的category
+                    <category android:name="android.intent.category.LAUNCHER" /> // 入口category
+         Extra: 额外的内容 内容表示Intent数据
+                   putExtra() : 键值对形式传递数据
+                   putExtras() : 传递的是一个bundle类型 可以放置更多数据
+        Data: 数据,包含了Uri类型的唯一字段.这种字段类似于 tel://    定义了唯一性的标识前缀
+                    使用action和data结合 可以实现跳转到系统的应用当中对应的界面.
+
+        启动一个Activity一般用两种形式, 显式启动 隐式启动
+        显式启动:  Intent intent = new Intent(当前页面.this,目标页面.class);
+        隐式启动:
+        不指名从哪里开始跳转 跳转到哪里
+         Intent i = new Intent();
+      如果需要实现隐式启动,一般使用action和data
+
+      或者action和category 在AndroidManifest.xml中的目标页面声明中加入
+      <intent-filter>
+             <action android:name="com.example.zlhj.classone.TestOne.action"></action>
+              <category android:name="android.intent.category.DEFAULT"></category>
+        </intent-filter>
+
+     11. 四种启动模式  启动应用程序就会开启activity栈,位于栈顶的activity被用户可见,每次启动一个activity的都会讲该activity放入栈中
+        Standrd: 标准的启动模式 如果需要启动一个activity 就会创建该activity的实例,也是activity的默认启动模式
+        singleTop: 如果启动的activity已经位于栈顶,那么不会重建一个新的activity实例,而是复用位于栈顶的实例对象,如果不位于栈顶,仍旧会重新创建activity实例对象
+        singleTask: 设置了singleTask启动模式的activity在启动的时候,如果位于activity栈当中,就会复用该activity,这样的话,在该实例之上的所有activity都会依次出栈,制定对应的onDestory方法,直到当前需要启动的activity位于栈顶.
+                      应用在: 网页的图集,一键退出当前的应用程序.
+        singleInstance ,如果使用了此模式的activity在启动的时候会复用已经存在的activity实例,不管这个activity实例是位于哪个应用当中,都会共享已经启动的activity的实例对象.使用了此模式的会单独的开启一个共享栈,这个栈中只保存当前的activity的实例对象.
+
+      12. 网络链接
+            ConnectivityManager ,获取链接的管理对象
+            如果需要获取网络链接状态,需要给定权限  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+ * */

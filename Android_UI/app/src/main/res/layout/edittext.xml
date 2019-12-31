@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="--------初识EditText-----"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/colorRed"
+        android:visibility="visible"
+        android:autoLink="web"
+        />
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你好啊!aaaaa"
+        android:textSize="20sp"
+        android:textColor="#f00"
+        android:maxLength="11"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:singleLine="true"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="--------EditText 明密文切换-----"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/colorRed"
+        android:visibility="visible"
+        android:autoLink="web"
+        />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:singleLine="true" />
+
+    <CheckBox
+        android:id="@+id/box"
+        android:layout_width="126dp"
+        android:layout_height="wrap_content"
+        android:text="查看密码" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="--------EditText 监听内容变化-----"
+        android:textSize="25sp"
+        android:textColor="@color/colorRed"
+        android:visibility="visible"
+        android:textAlignment="center"
+        android:autoLink="web"
+        />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号"
+        android:layout_marginTop="50dp"
+        />
+
+</LinearLayout>

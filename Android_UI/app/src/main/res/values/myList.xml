@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="list_array">
+        <item>数据元素1</item>
+        <item>数据元素2</item>
+        <item>数据元素3</item>
+        <item>数据元素4</item>
+        <item>数据元素5</item>
+        <item>数据元素6</item>
+        <item>数据元素7</item>
+        <item>数据元素8</item>
+        <item>数据元素9</item>
+        <item>数据元素10</item>
+        <item>数据元素11</item>
+        <item>数据元素12</item>
+    </string-array>
+</resources>

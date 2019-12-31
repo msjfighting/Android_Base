@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.RefreshActivity">
+
+    <include layout="@layout/navbar"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/id_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </androidx.viewpager.widget.ViewPager>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="#aaaaaa"
+            android:layout_height="1px"/>
+
+      <LinearLayout
+          android:background="#eeeeee"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="5dp"
+          android:orientation="horizontal">
+
+          <com.msj.android_project.view.TabBarView
+              android:id="@+id/id_home"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1">
+
+          </com.msj.android_project.view.TabBarView>
+          <com.msj.android_project.view.TabBarView
+              android:id="@+id/id_pangdan"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1">
+
+          </com.msj.android_project.view.TabBarView>
+          <com.msj.android_project.view.TabBarView
+              android:id="@+id/id_order"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1">
+          </com.msj.android_project.view.TabBarView>
+      </LinearLayout>
+
+    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SettingActivity">
+
+    <com.msj.android_project.view.TextImageCell
+        android:id="@+id/fingerprintCL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cell_title="@string/fingerprintLogin"
+        app:cell_rightImage="@drawable/close"/>
+
+    <TextView
+        android:id="@+id/fingerprintTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="@string/fingerprint_hint"
+        android:textColor="#333333"
+        app:layout_constraintTop_toBottomOf="@+id/fingerprintCL"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="1dp"
+        android:background="#fff"
+        android:visibility="gone"
+        />
+
+    <com.msj.android_project.view.TextImageCell
+        android:id="@+id/gestureLockCL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cell_title="@string/gestureLogin"
+        app:cell_rightImage="@drawable/close"/>
+    <TextView
+        android:id="@+id/changeGesture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:text="修改手势密码"
+        app:layout_constraintTop_toBottomOf="@+id/gestureLockCL"
+        android:padding="15dp"
+        android:layout_marginTop="1dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:background="#ffffff"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>
