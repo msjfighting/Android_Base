@@ -3,6 +3,9 @@ package com.msj.android_project.adapter;
 import android.content.Context;
 import android.content.Intent;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import com.msj.android_project.activity.EventbusActivity;
 import com.msj.android_project.activity.FingerActivity;
 import com.msj.android_project.activity.FragmentParamActivity;
 import com.msj.android_project.activity.HTDetailActivity;
+import com.msj.android_project.activity.HandlerActivity;
 import com.msj.android_project.activity.HttpTestActivity;
 import com.msj.android_project.Image2PDFActivity;
 import com.msj.android_project.activity.ImageActivity;
@@ -30,21 +34,25 @@ import com.msj.android_project.activity.RetrofitActivity;
 import com.msj.android_project.activity.RunActivity;
 import com.msj.android_project.activity.StaticActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<String> mList = new ArrayList<>();
 
-    public MyAdapter(Context mContext,List<String> list) {
+    public MyAdapter(Context mContext) {
         this.mContext = mContext;
-        mList = list;
+    }
+
+    public void addList(List<String> list){
+        mList.addAll(list);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(View.inflate(mContext, R.layout.item_list,null));
+        return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_list,parent,false));
     }
 
     @Override
@@ -113,9 +121,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     case 18:
                         i = new Intent(mContext, ComplexRecyclerViewActivity.class);
                         break;
+                    case 19:
+                        i = new Intent(mContext, HandlerActivity.class);
+                        break;
                 }
-                mContext.startActivity(i);
 
+                mContext.startActivity(i);
             }
         });
     }

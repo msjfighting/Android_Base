@@ -3,7 +3,10 @@ package com.msj.android_project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +49,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             }
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     /**

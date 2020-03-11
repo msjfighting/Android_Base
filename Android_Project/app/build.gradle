@@ -9,7 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk { abiFilters 'armeabi','armeabi-v7a','armeabi-v8a',"x86" }
+        ndk { abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', "x86" }
     }
 
 //    multiDexEnabled true

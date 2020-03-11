@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
                     "图片预览效果","饼图","OkHttp","下拉刷新/下拉加载","流式布局","万能适配器",
                     "第三方Butterknife的学习","Eventbus(通信)学习","Retrofit网络框架",
                     "指纹,手势登录","静态使用Fragment","动态使用Fragment",
-                    "activity与fragment间传值","提示框","app更新","访问assets下的图片","加载网络PDF","加载手机上的pdf","RecyclerView实现复杂布局"));
+                    "activity与fragment间传值","提示框","app更新","访问assets下的图片","加载网络PDF","加载手机上的pdf","RecyclerView实现复杂布局","认识Handler"));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,10 @@ public class MainActivity extends BaseActivity {
 
         // 添加分割线
         listView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        listView.setAdapter(new MyAdapter(this,list));
+        MyAdapter myAdapter = new MyAdapter(this);
+        listView.setAdapter(myAdapter);
+        myAdapter.addList(list);
+        myAdapter.notifyDataSetChanged();
 
     }
 

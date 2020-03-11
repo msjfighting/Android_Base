@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".activity.ComplexRecyclerViewActivity"></activity>
+        <activity android:name=".activity.HandlerActivity"></activity>
+        <activity android:name=".activity.ComplexRecyclerViewActivity" />
         <activity android:name=".activity.CommonWebViewActivity" />
         <activity android:name=".Image2PDFActivity" />
         <activity android:name=".activity.AssetsActivity" />
