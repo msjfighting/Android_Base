@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.msj.android_project.R;
 import com.msj.android_project.activity.AssetsActivity;
 import com.msj.android_project.activity.ButterknifeActivity;
+import com.msj.android_project.activity.ComplexRecyclerViewActivity;
 import com.msj.android_project.activity.DialogActivity;
 import com.msj.android_project.activity.DownActivity;
 import com.msj.android_project.activity.EventbusActivity;
@@ -109,7 +110,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     case 17:
                         i = new Intent(mContext, NormalFilePickActivity.class);
                         break;
-
+                    case 18:
+                        i = new Intent(mContext, ComplexRecyclerViewActivity.class);
+                        break;
                 }
                 mContext.startActivity(i);
 

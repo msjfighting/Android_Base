@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".activity.CommonWebViewActivity"></activity>
+        <activity android:name=".activity.ComplexRecyclerViewActivity"></activity>
+        <activity android:name=".activity.CommonWebViewActivity" />
         <activity android:name=".Image2PDFActivity" />
         <activity android:name=".activity.AssetsActivity" />
         <activity android:name=".activity.DownActivity" />
@@ -29,8 +30,8 @@
             android:value="e6a4b1e7b0426c7c70cdc879746005f5" />
 
         <service android:name=".view.DownApkService" />
-        <activity android:name=".activity.HTDetailActivity" />
 
+        <activity android:name=".activity.HTDetailActivity" />
         <activity android:name=".activity.NormalFilePickActivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.DialogActivity" />
