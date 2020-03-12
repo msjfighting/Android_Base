@@ -1,6 +1,7 @@
 package com.msj.android_project.utils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.app.Service;
@@ -28,6 +29,7 @@ import android.provider.Settings;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,8 +48,12 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -71,6 +77,7 @@ import java.util.Properties;
  */
 public class SystemUtil {
     public final static int REQUEST_READ_PHONE_STATE = 1;
+
 
 
     public interface RequestPermissionListenter {
@@ -558,6 +565,86 @@ public class SystemUtil {
                 str.append(split);
         }
         return str.toString();
+    }
+
+    public static long getVersionCode(Context context){
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                return packageInfo.getLongVersionCode();
+            }else {
+                return packageInfo.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static String getFileMd5(File file) {
+
+        if (file == null || !file.isFile()) return null;
+
+        MessageDigest digest = null;
+        FileInputStream in = null;
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        try {
+            digest = MessageDigest.getInstance("MD5");
+            in = new FileInputStream(file);
+            while ((len = in.read(buffer)) != -1){
+                digest.update(buffer,0,len);
+            }
+            byte[] digest1 = digest.digest();
+            BigInteger bigInteger = new BigInteger(1,digest1);
+            return bigInteger.toString(16);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+
+    }
+
+
+    public static void installAPK(Activity activity, File apkFile) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+
+        Uri uri;
+
+        // TODO N FileProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            uri = FileProvider.getUriForFile(activity,activity.getPackageName()+".fileprovider",apkFile);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        }else {
+            uri = Uri.fromFile(apkFile);
+        }
+
+        intent.setDataAndType(uri,"application/vnd.android.package-archive");
+        activity.startActivity(intent);
+
+        // TODO O INSTALL PERMISSION
+        // 跳转到安装页面.
+//        android.permission.REQUEST_INSTALL_PACKAGES
+
+
+
     }
 
 

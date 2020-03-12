@@ -9,5 +9,5 @@
         android:id="@+id/down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="nihao"/>
+        android:text="更新"/>
 </LinearLayout>
