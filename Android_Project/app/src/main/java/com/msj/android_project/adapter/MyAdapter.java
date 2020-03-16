@@ -33,6 +33,7 @@ import com.msj.android_project.activity.LayoutActivity;
 import com.msj.android_project.activity.RetrofitActivity;
 import com.msj.android_project.activity.RunActivity;
 import com.msj.android_project.activity.StaticActivity;
+import com.msj.android_project.activity.VedioActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +125,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     case 19:
                         i = new Intent(mContext, HandlerActivity.class);
                         break;
+                    case 20:
+                        i = new Intent(mContext, VedioActivity.class);
+                        break;
+
                 }
 
                 mContext.startActivity(i);

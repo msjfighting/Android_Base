@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".activity.HandlerActivity"></activity>
+        <activity android:name=".activity.VedioActivity"  ></activity>
+        <activity android:name=".activity.HandlerActivity" />
         <activity android:name=".activity.ComplexRecyclerViewActivity" />
         <activity android:name=".activity.CommonWebViewActivity" />
         <activity android:name=".Image2PDFActivity" />
@@ -58,7 +59,7 @@
         <activity android:name=".activity.HttpTestActivity" />
         <activity android:name=".activity.PieActivity" />
         <activity android:name=".activity.ImageActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,11 +72,12 @@
             android:authorities="com.msj.android_project.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <!--方法一 -->
-<!--            <meta-data-->
-<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--                android:resource="@xml/file_paths_public" />-->
-<!--            方法二-->
+
+            <!-- 方法一 -->
+            <!-- <meta-data -->
+            <!-- android:name="android.support.FILE_PROVIDER_PATHS" -->
+            <!-- android:resource="@xml/file_paths_public" /> -->
+            <!-- 方法二 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
