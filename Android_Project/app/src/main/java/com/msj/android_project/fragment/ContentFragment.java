@@ -33,7 +33,9 @@ public class ContentFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 由于 activity 实现了 ClickItem 则采用此方法
-        listener = (ClickItem) getActivity();
+        if (listener != null){
+            listener = (ClickItem) getActivity();
+        }
     }
 
     /**

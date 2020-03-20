@@ -10,9 +10,10 @@
     <include layout="@layout/navbar"/>
 
     <RelativeLayout
+        android:id="@+id/vedio_layout"
         android:layout_width="match_parent"
         android:layout_height="240dp">
-        <VideoView
+        <com.msj.android_project.view.CustomVideoView
             android:id="@+id/vedio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -26,13 +27,16 @@
 
             <SeekBar
                 android:id="@+id/current_bar"
-                android:progressDrawable="@drawable/seek_bar_style"
-                android:max="100"
-                android:progress="20"
-                android:layout_marginRight="-20dp"
-                android:layout_marginLeft="-20dp"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"/>
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:maxHeight="5dip"
+                android:minHeight="5dip"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:progress="20"
+                android:progressDrawable="@drawable/seek_bar_style"
+                android:thumb="@drawable/seekbar_thumb_bg" />
 
             <RelativeLayout
                 android:gravity="center_vertical"
@@ -49,7 +53,7 @@
                     <ImageView
                         android:id="@+id/pause_img"
                         android:layout_marginLeft="16dp"
-                        android:src="@drawable/pause_btn_style"
+                        android:src="@drawable/play_btn_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -98,6 +102,8 @@
                             android:progressDrawable="@drawable/seek_bar_style"
                             android:max="100"
                             android:progress="20"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
                             android:visibility="gone"
                             android:layout_width="100dp"
                             android:layout_height="5dp"/>
