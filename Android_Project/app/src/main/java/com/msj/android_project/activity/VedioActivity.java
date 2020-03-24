@@ -1,5 +1,6 @@
 package com.msj.android_project.activity;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.media.AudioManager;
@@ -8,10 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -51,6 +54,12 @@ public class VedioActivity extends BaseActivity {
     RelativeLayout vedioLayout;
     @BindView(R.id.controllerBar_layout)
     LinearLayout controllerBarLayout;
+    @BindView(R.id.img_control)
+    ImageView operationImg;
+    @BindView(R.id.seek_control)
+    SeekBar operationBar;
+    @BindView(R.id.include_layout)
+    FrameLayout layoutProgress;
 
     private int screen_width;
     private int screent_height;
@@ -61,8 +70,18 @@ public class VedioActivity extends BaseActivity {
 
     private int startRotation;
 
+    private float lastX = 0;
+    private float lastY = 0;
+    private int touchRang;
+
     private OrientationEventListener mOrientationListener; // 屏幕方向改变监听器
 
+    private boolean isAdjust = false;
+    private int threshold = 54;
+    private float mButtonBrightness;
+
+    private int volumMax;
+    private int volumCurrent;
 
     /**
      * 实时播放刷新播放时间显示
@@ -106,9 +125,9 @@ public class VedioActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == UPDATE_UI){
+            if (msg.what == UPDATE_UI) {
                 controllerBarLayout.setVisibility(View.GONE);
-            }else {
+            } else {
                 controllerBarLayout.setVisibility(View.VISIBLE);
             }
 
@@ -137,17 +156,24 @@ public class VedioActivity extends BaseActivity {
      * 网络视频播放
      */
     private void initNetVedio() {
-        vedio.setVideoURI(Uri.parse("https://gqnew2.new1-youku.com/20200216/qFwIhEvniZkCfJM4/index.m3u8"));
+//        vedio.setVideoURI(Uri.parse("https://gqnew2.new1-youku.com/20200216/qFwIhEvniZkCfJM4/index.m3u8"));
+//
+//        vedio.start();
 
+
+        //video初始化
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.baishi);
+        vedio.setVideoURI(uri);
         vedio.start();
+
         UIHandler.sendEmptyMessage(UPDATE_UI);
 
         // 获取设备的最大音量
-        int streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        volumMax = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         // 获取设备当前的音量
-        int streamVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        volumeBar.setMax(streamMaxVolume);
-        volumeBar.setProgress(streamVolume);
+        volumCurrent = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        volumeBar.setMax(volumMax);
+        volumeBar.setProgress(volumCurrent);
         volumeBar.setEnabled(true);
         currentBar.setEnabled(true);
         // 播放拖动
@@ -211,6 +237,133 @@ public class VedioActivity extends BaseActivity {
         });
 
 
+        vedio.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    /**
+                     * 手指落下屏幕那一刻
+                     */
+                    case MotionEvent.ACTION_DOWN: {
+                        lastX = event.getX();
+                        lastY = event.getY();
+                        volumCurrent = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                        touchRang = Math.min(screent_height, screen_width); //screenHeight
+
+                        if (lastX < screen_width / 2) {
+                            operationImg.setImageResource(R.drawable.bright);
+                            operationBar.setProgress(volumCurrent);
+                        } else {
+                            operationImg.setImageResource(R.drawable.volum);
+                            operationBar.setProgress((int) (getWindow().getAttributes().screenBrightness*100));
+                        }
+                        break;
+                    }
+                    /**
+                     * 手指在屏幕上滑动
+                     */
+                    case MotionEvent.ACTION_MOVE: {
+                        layoutProgress.setVisibility(View.VISIBLE);
+                        float endX = event.getX();
+                        float endY = event.getY();
+                        float detlaX = lastX - endX;
+                        float detlaY = lastY - endY;
+                        float absdetlaX = Math.abs(detlaX);
+                        float absdetlaY = Math.abs(detlaY);
+
+                        if (absdetlaX > threshold && absdetlaY > threshold) { //斜向滑动
+                            if (absdetlaX < absdetlaY) {
+                                isAdjust = true;
+                            } else {
+                                isAdjust = false;
+                            }
+                        } else if (absdetlaX < threshold && absdetlaY > threshold) {
+                            isAdjust = true;
+                        } else if (absdetlaX > threshold && absdetlaY < threshold) {
+                            isAdjust = false;
+                        }
+
+                        if (isAdjust) {
+                            /**
+                             * 在判断好当前手势事件已经合法的前提下,去区分此时手势应该调节亮度还是调节声音
+                             */
+                            if (endX < screen_width / 2) {
+                                /**
+                                 * 调节亮度
+                                 */
+                                operationImg.setImageResource(R.drawable.bright);
+                                final double FLING_MIN_DISTANCE = 0.5;
+                                final double FLING_MIN_VELOCITY = 0.5;
+                                operationBar.setMax(100);//设置最大值为100
+                                if (detlaY > FLING_MIN_DISTANCE && Math.abs(detlaY) > FLING_MIN_VELOCITY) {
+                                    changeBrightness(10);
+                                }
+                                if (detlaY < FLING_MIN_DISTANCE && Math.abs(detlaY) > FLING_MIN_VELOCITY) {
+                                    changeBrightness(-10);
+                                }
+
+
+                            } else {
+                                operationImg.setImageResource(R.drawable.volum);
+                                changeVolume(detlaY);
+                            }
+                        }
+                        break;
+                    }
+                    /**
+                     * 手指离开屏幕那一刻
+                     */
+                    case MotionEvent.ACTION_UP: {
+                        layoutProgress.setVisibility(View.GONE);
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+    }
+
+    private void changeVolume(float detlay) {
+
+        float index =  (detlay / touchRang) * volumMax;
+
+        float volume = Math.max(volumCurrent + index, 0);
+
+        int voice = (int) Math.min(volume, volumMax);
+
+        if (layoutProgress.getVisibility() == View.GONE){
+            layoutProgress.setVisibility(View.VISIBLE);
+        }
+        if (index != 0){
+            operationBar.setMax(volumMax);
+            operationBar.setProgress(volumCurrent);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, voice, 0);
+            volumeBar.setProgress(voice);
+            volumCurrent = voice;
+            operationBar.setProgress(voice);
+        }
+
+    }
+
+    private void changeBrightness(float detlay) {
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        mButtonBrightness = attributes.screenBrightness + detlay / 255.0f; // 在0和255之间
+
+        if (mButtonBrightness > 1.0f) {
+            mButtonBrightness = 1.0f;
+        }
+        if (mButtonBrightness < 0.1f) {
+            mButtonBrightness = 0.1f;
+        }
+
+        attributes.screenBrightness = mButtonBrightness ;
+        getWindow().setAttributes(attributes);
+
+        if (layoutProgress.getVisibility() == View.GONE){
+            layoutProgress.setVisibility(View.VISIBLE);
+        }
+        operationBar.setProgress((int) (100 * mButtonBrightness));
     }
 
     @OnClick({R.id.pause_img, R.id.screen_img})
@@ -306,7 +459,7 @@ public class VedioActivity extends BaseActivity {
             getWindow().addFlags((WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN));
         }
         //2秒后隐藏播放工具栏
-        hideHandler.sendEmptyMessageDelayed(UPDATE_UI,2000);
+        hideHandler.sendEmptyMessageDelayed(UPDATE_UI, 2000);
     }
 
     @Override

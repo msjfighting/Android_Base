@@ -18,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <include layout="@layout/layout_progress" android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/controllerBar_layout"
             android:layout_alignParentBottom="true"
