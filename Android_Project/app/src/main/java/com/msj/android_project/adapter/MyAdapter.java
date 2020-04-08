@@ -28,6 +28,7 @@ import com.msj.android_project.activity.ImageActivity;
 import com.msj.android_project.activity.NormalFilePickActivity;
 import com.msj.android_project.activity.OmnipotentAdapterActivity;
 import com.msj.android_project.activity.PieActivity;
+import com.msj.android_project.activity.PlayGameActivit;
 import com.msj.android_project.activity.RefreshActivity;
 import com.msj.android_project.activity.LayoutActivity;
 import com.msj.android_project.activity.RetrofitActivity;
@@ -127,6 +128,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         break;
                     case 20:
                         i = new Intent(mContext, VedioActivity.class);
+                        break;
+                    case 21:
+                        i = new Intent(mContext, PlayGameActivit.class);
                         break;
 
                 }
