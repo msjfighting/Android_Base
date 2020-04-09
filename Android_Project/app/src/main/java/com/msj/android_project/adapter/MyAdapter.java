@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,11 @@ import com.msj.android_project.activity.FragmentParamActivity;
 import com.msj.android_project.activity.HTDetailActivity;
 import com.msj.android_project.activity.HandlerActivity;
 import com.msj.android_project.activity.HttpTestActivity;
-import com.msj.android_project.Image2PDFActivity;
 import com.msj.android_project.activity.ImageActivity;
 import com.msj.android_project.activity.NormalFilePickActivity;
 import com.msj.android_project.activity.OmnipotentAdapterActivity;
 import com.msj.android_project.activity.PieActivity;
-import com.msj.android_project.activity.PlayGameActivit;
+import com.msj.android_project.activity.PlayGameActivity;
 import com.msj.android_project.activity.RefreshActivity;
 import com.msj.android_project.activity.LayoutActivity;
 import com.msj.android_project.activity.RetrofitActivity;
@@ -130,7 +128,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         i = new Intent(mContext, VedioActivity.class);
                         break;
                     case 21:
-                        i = new Intent(mContext, PlayGameActivit.class);
+                        i = new Intent(mContext, PlayGameActivity.class);
                         break;
 
                 }

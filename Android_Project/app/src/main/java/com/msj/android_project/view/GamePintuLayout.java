@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -53,6 +56,84 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
      */
     private int mWidth;
 
+    private boolean isGameSuccess;
+    private boolean isGameOver;
+
+    public interface GamePintuListener {
+        void nextLevel(int nextLevel);
+
+        void timeChangeed(int currentTime);
+
+        void gameOver();
+    }
+
+    public GamePintuListener mListener;
+
+    public void setOnGamePintuListener(GamePintuListener mListener) {
+        this.mListener = mListener;
+    }
+
+    private static final int TIME_CHANGED = 0x110;
+
+    private static final int NEXT_LEVEL = 0x111;
+
+    private int mLevel = 1;
+
+    private int mDuration = 60;
+
+    /**
+     * 设置游戏时长
+     * @param duration
+     */
+    public void setDuration(int duration) {
+        mDuration = duration;
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case TIME_CHANGED:
+                    if (isGameSuccess || isGameOver || isPause) return;
+                    if (mListener != null) {
+                        mListener.timeChangeed(mTime);
+                    }
+                    if (mTime == 0) {
+                        isGameOver = true;
+                        mListener.gameOver();
+                        return;
+                    }
+                    mTime--;
+                    mHandler.sendEmptyMessageDelayed(TIME_CHANGED, 1000);
+                    break;
+
+                case NEXT_LEVEL:
+                    mLevel = mLevel + 1;
+                    if (mListener != null) {
+                        mListener.nextLevel(mLevel);
+                    } else {
+                        nextLevel();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    };
+
+    public boolean isTimeEnabled = false;
+    private int mTime;
+
+    /**
+     * 设置是否开启时间限制
+     *
+     * @param timeEnabled
+     */
+    public void setTimeEnabled(boolean timeEnabled) {
+        isTimeEnabled = timeEnabled;
+    }
+
 
     public GamePintuLayout(Context context) {
         this(context, null);
@@ -90,10 +171,33 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
             // 设置imageView的宽高
             initItem();
 
+            // 判断是否开启时间
+
+            checkTimeEnabled();
+
             once = true;
         }
         setMeasuredDimension(mWidth, mWidth);
 
+    }
+
+
+    /**
+     * 判断是否开启时间
+     */
+    private void checkTimeEnabled() {
+        if (isTimeEnabled) {
+            //根据当前等级设置时间
+            countTimeBaseLevel();
+            mHandler.sendEmptyMessage(TIME_CHANGED);
+        }
+    }
+
+    /**
+     * 根据当前等级设置时间
+     */
+    private void countTimeBaseLevel() {
+        mTime = (int) (Math.pow(2, mLevel) * mDuration);
     }
 
     /**
@@ -134,7 +238,7 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
             item.setOnClickListener(this);
             item.setImageBitmap(mItemBitmaps.get(i).getBitmap());
             mGamePintuItems[i] = item;
-            item.setId(i+1);
+            item.setId(i + 1);
             // 在item的tag中存储index,拼图是否成功的验证
             item.setTag(i + "_" + mItemBitmaps.get(i).getIndex());
 
@@ -255,7 +359,6 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
         firstV.startAnimation(animation);
 
 
-
         TranslateAnimation animation2 = new TranslateAnimation(0,
                 -mSecond.getLeft() + mFirst.getLeft(),
                 0,
@@ -289,8 +392,11 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
                 mFirst = mSecond = null;
                 // 移除动画层上的view
                 mAnimLayout.removeAllViews();
+                // 判断游戏是否成功
+                checkSuccess();
                 isAniming = false;
             }
+
 
             @Override
             public void onAnimationRepeat(Animation animation) {
@@ -298,6 +404,27 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
             }
         });
 
+    }
+
+    /**
+     * 判断游戏是否成功
+     */
+    private void checkSuccess() {
+        boolean isSuccess = true;
+
+        for (int i = 0; i < mGamePintuItems.length; i++) {
+            ImageView imageView = mGamePintuItems[i];
+            if (getImageIndex(String.valueOf(imageView.getTag())) != i) {
+                isSuccess = false;
+                break;
+            }
+        }
+
+        if (isSuccess) {
+            isGameSuccess = true;
+            mHandler.removeMessages(TIME_CHANGED);
+            mHandler.sendEmptyMessage(NEXT_LEVEL);
+        }
     }
 
     /**
@@ -311,10 +438,54 @@ public class GamePintuLayout extends RelativeLayout implements View.OnClickListe
         return Integer.parseInt(s[0]);
     }
 
+    /**
+     * 根据tag获取 拼图的index
+     *
+     * @param tag
+     * @return
+     */
     private int getImageIndex(String tag) {
         String[] s = tag.split("_");
         return Integer.parseInt(s[1]);
     }
+
+    /**
+     * 时间结束,重新开始定时开始游戏
+     */
+    public void restart() {
+        //根据当前等级设置时间
+        isGameOver = false;
+        isGameSuccess = false;
+        countTimeBaseLevel();
+        mHandler.sendEmptyMessage(TIME_CHANGED);
+    }
+
+    private boolean isPause;
+
+    public void pause(){
+        isPause = true;
+        mHandler.removeMessages(TIME_CHANGED);
+    }
+
+    public void resume(){
+        if (isPause){
+            isPause = false;
+            mHandler.sendEmptyMessage(TIME_CHANGED);
+        }
+    }
+
+    public void nextLevel() {
+        this.removeAllViews();
+        mAnimLayout = null;
+        mColumn++;
+        isGameSuccess = false;
+
+        // 下一关重新开始计时
+        checkTimeEnabled();
+        initBitmap();
+        initItem();
+    }
+
 
     /**
      * 构造动画层
