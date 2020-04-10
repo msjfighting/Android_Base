@@ -21,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".activity.PlayGameActivity"></activity>
+        <activity android:name=".activity.MvvmActivity"></activity>
+        <activity android:name=".activity.ArchitectureActivity" />
+        <activity android:name=".activity.PlayGameActivity" />
         <activity
             android:name=".activity.VedioActivity"
             android:configChanges="orientation|screenSize|keyboard"

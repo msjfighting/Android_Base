@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.msj.android_project.R;
+import com.msj.android_project.activity.ArchitectureActivity;
 import com.msj.android_project.activity.AssetsActivity;
 import com.msj.android_project.activity.ButterknifeActivity;
 import com.msj.android_project.activity.ComplexRecyclerViewActivity;
@@ -129,6 +130,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         break;
                     case 21:
                         i = new Intent(mContext, PlayGameActivity.class);
+                        break;
+                    case 22:
+                        i = new Intent(mContext, ArchitectureActivity.class);
                         break;
 
                 }
