@@ -15,6 +15,7 @@ import com.msj.android_project.activity.ArchitectureActivity;
 import com.msj.android_project.activity.AssetsActivity;
 import com.msj.android_project.activity.ButterknifeActivity;
 import com.msj.android_project.activity.ComplexRecyclerViewActivity;
+import com.msj.android_project.activity.DataBindingDemoActivity;
 import com.msj.android_project.activity.DialogActivity;
 import com.msj.android_project.activity.DownActivity;
 import com.msj.android_project.activity.EventbusActivity;
@@ -133,6 +134,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         break;
                     case 22:
                         i = new Intent(mContext, ArchitectureActivity.class);
+                        break;
+                    case 23:
+                        i = new Intent(mContext, DataBindingDemoActivity.class);
                         break;
 
                 }
