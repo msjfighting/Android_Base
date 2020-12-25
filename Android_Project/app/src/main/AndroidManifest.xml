@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeCustom">
-        <activity android:name=".activity.DataBindingDemoActivity"></activity>
+        <activity android:name=".activity.ScreenAdaptationActivity"></activity>
+        <activity android:name=".activity.DataBindingDemoActivity" />
         <activity android:name=".activity.MvvmActivity" />
         <activity android:name=".activity.ArchitectureActivity" />
         <activity android:name=".activity.PlayGameActivity" />
